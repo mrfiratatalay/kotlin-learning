@@ -21,6 +21,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.firatatalay.myapplication.ui.theme.MyApplicationTheme
 
 class MainActivity : ComponentActivity() {
@@ -306,8 +308,45 @@ fun LazyHorizontalGridComposablePreview() {
 
 
 
+//ConstraintLayout Preview
+@Composable
+fun ConstraintLayoutComposable() {
+    ConstraintLayout(
+        modifier = Modifier
+            .padding(16.dp)
+    ) {
+        val (icon, text) = createRefs()
+            Icon(
+                modifier = Modifier
+                    .size(80.dp)
+                    .constrainAs(icon) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                    },
+                imageVector = Icons.Outlined.Notifications,
+                contentDescription = null,
+                tint = Color.Green
+            )
+            Text(
+                modifier = Modifier
+                    .constrainAs(text) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(icon.end)
+                    },
+                text = "9",
+                style = MaterialTheme.typography.titleLarge
+            )
 
+    }
+}
 
+@Preview(showBackground = true)
+@Composable
+fun ConstraintLayoutComposablePreview() {
+    ConstraintLayoutComposable()
+}
 
 
 
