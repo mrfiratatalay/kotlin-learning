@@ -1,5 +1,6 @@
 package com.firatatalay.myapplication
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -309,6 +310,7 @@ fun LazyHorizontalGridComposablePreview() {
 
 
 //ConstraintLayout Preview
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun ConstraintLayoutComposable() {
     ConstraintLayout(
