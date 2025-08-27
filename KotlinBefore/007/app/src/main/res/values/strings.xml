@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Business Card</string>
+    <string name="header_full_name">Firat Atalay</string>
+    <string name="header_title">Android Developer</string>
 </resources>
