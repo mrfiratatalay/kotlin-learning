@@ -1,7 +1,7 @@
 ### Let's start to learn!
 
 
-## Fırat Atalay
+## Fırat ATALAY
 
 
 # Let's do that...
