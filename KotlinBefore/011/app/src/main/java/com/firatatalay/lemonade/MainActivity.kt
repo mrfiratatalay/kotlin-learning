@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
 fun LemonadeApp() {
 
     var currentStep by remember { mutableStateOf(1) }
-
+    var squeezeCount by remember { mutableStateOf(0)}
 
     Scaffold(
         topBar = {
@@ -86,7 +86,10 @@ fun LemonadeApp() {
                         textLabelResourceId = R.string.lemon_select,
                         drawableResourceId = R.drawable.lemon_tree,
                         contentDescriptionResourceId = R.string.lemon_tree_content_description,
-                        onImageClick = { currentStep = 2}
+                        onImageClick = {
+                            currentStep = 2
+                            squeezeCount = (2..4).random()
+                        }
                     )
                 }
 
@@ -95,7 +98,12 @@ fun LemonadeApp() {
                         textLabelResourceId = R.string.lemon_squeeze,
                         drawableResourceId = R.drawable.lemon_squeeze,
                         contentDescriptionResourceId = R.string.lemon_content_description,
-                        onImageClick = { currentStep = 3}
+                        onImageClick = {
+                            squeezeCount--
+                            if (squeezeCount == 0) {
+                                currentStep = 3
+                            }
+                        }
                     )
                 }
 
