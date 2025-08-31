@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -35,6 +36,7 @@ import java.text.NumberFormat
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.KeyboardType
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +66,14 @@ private fun calculateTip(
 
 @Composable
 fun TipTimeLayout() {
+
+    // var amountInput: MutableState<String> = mutableStateOf("0")
+    var amountInput by remember {  mutableStateOf("")}
+
+    val amount = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount)
+
+
     Column(
         modifier = Modifier
             .statusBarsPadding()
@@ -80,12 +90,14 @@ fun TipTimeLayout() {
                 .align(alignment = Alignment.Start)
         )
         EditNumberField(
+            value = amountInput,
+            onValueChange = { amountInput = it },
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
         Text(
-            text = stringResource(R.string.tip_amount, "$0.00"),
+            text = stringResource(R.string.tip_amount, tip),
             style = MaterialTheme.typography.displaySmall
         )
         Spacer(
@@ -97,14 +109,19 @@ fun TipTimeLayout() {
 
 
 @Composable
-fun EditNumberField(modifier: Modifier = Modifier) {
+fun EditNumberField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
 
-   // var amountInput: MutableState<String> = mutableStateOf("0")
-    var amountInput by remember {  mutableStateOf("")}
 
     TextField(
-        value = amountInput,
-        onValueChange = { amountInput = it },
+        value = value,
+        onValueChange = onValueChange,
+        singleLine = true,
+        label = { Text(stringResource(R.string.bill_amount))},
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         modifier = modifier
     )
 }
